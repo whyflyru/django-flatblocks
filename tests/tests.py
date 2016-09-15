@@ -1,5 +1,5 @@
 from django import template
-from django.test import TestCase
+from django.test import TestCase, RequestFactory
 from django.contrib.auth.models import User
 from django import db
 
@@ -37,10 +37,12 @@ class BasicTests(TestCase):
 
 class TagTests(TestCase):
     def setUp(self):
-        self.testblock = FlatBlock.objects.create(slug='block',
-                                                  header='HEADER',
-                                                  content='CONTENT'
-                                                  )
+        self.testblock = FlatBlock.objects.create(
+            slug='block',
+            header='HEADER',
+            content='CONTENT'
+        )
+        self.request_factory = RequestFactory()
 
     def testLoadingTaglib(self):
         """Tests if the taglib defined in this app can be loaded"""
@@ -63,6 +65,7 @@ class TagTests(TestCase):
         self.assertEqual(expected, tpl.render(template.Context({})))
 
     def testUsingMissingTemplate(self):
+        request = self.request_factory.get('/')
         tpl = template.Template(
             '{% load flatblocks %}'
             '{% flatblock "block" using="missing_template.html" %}')
@@ -118,6 +121,54 @@ class TagTests(TestCase):
             'header_variable': 'header-value'
         }))
         self.assertTrue('header-value' in result)
+
+    def testSubdomains(self):
+        FlatBlock.objects.create(
+            slug='welcome',
+            content='Welcome to Moscow',
+            subdomain='msk'
+        )
+        FlatBlock.objects.create(
+            slug='welcome',
+            content='Welcome to Sankt-Peterburg',
+            subdomain='spb'
+        )
+        FlatBlock.objects.create(
+            slug='welcome',
+            content='Welcome to website',
+            subdomain=''
+        )
+
+        request = self.request_factory.get('/')
+        request.subdomain = 'msk'
+
+        # getting subdomain from request
+        tpl = template.Template(
+            '{% load flatblocks %}{% flatblock "welcome" %}'
+        )
+        result = tpl.render(
+            template.Context({'request': request})
+        )
+        self.assertIn('Welcome to Moscow', result)
+
+        # a direct reference subdomain in tag
+        tpl = template.Template(
+            '{% load flatblocks %}{% flatblock "welcome" subdomain="spb" %}'
+        )
+        result = tpl.render(
+            template.Context({'request': request})
+        )
+        self.assertIn('Sankt-Peterburg', result)
+
+        # subdomain as empty string
+        request.subdomain = ''
+        tpl = template.Template(
+            '{% load flatblocks %}{% flatblock "welcome" %}'
+        )
+        result = tpl.render(
+            template.Context({'request': request})
+        )
+        self.assertIn('website', result)
 
 
 class AutoCreationTest(TestCase):
