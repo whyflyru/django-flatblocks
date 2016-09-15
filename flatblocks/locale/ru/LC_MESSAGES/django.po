@@ -39,6 +39,14 @@ msgstr "Блок текста"
 msgid "Flat blocks"
 msgstr "Блоки текста"
 
+#: models.py:19
+msgid "Subdomain"
+msgstr "Поддомен"
+
+#: models.py:20
+msgid "A subdomain under which the content will be displayed"
+msgstr "Поддомен, под которым содержание будет показано"
+
 #: views.py:46
 msgid "You are not allowed to edit this flatblock"
 msgstr "Недостаточно прав для редактирования этого блока текста"
