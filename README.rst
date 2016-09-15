@@ -15,30 +15,6 @@ Probably the easiest way to install this application is to first run
 file and run ``python manage.py syncdb`` to update your database.
 
 
-Upgrading
----------
-
-django-flatblocks uses `South`_ for handling data and schema migrations
-starting with version 0.6.0, so the South-typical update path applies here.
-
-If you're upgrading from a 0.5.x version or earlier you will have to migrate
-in 3 steps:
-
-1. Install south.
-
-2. Migrate your database to the first version of flatblocks using South:
-
-   .. code-block:: sh
-
-      ./manage.py migrate flatblocks 0001 --fake
-
-3. Then migrate your database to the latest version of flatblocks' database
-   and data structure:
-
-   .. code-block:: sh
-
-      ./manage.py migrate flatblocks
-
 Usage
 -----
 
@@ -201,6 +177,8 @@ the `django-better-chunks`_ fork (``django.contrib.site``- and i18n-support).
 
 Releases
 --------
+0.10
+    * Drop South support
 
 0.9.3:
     * Fixed Django 1.10 compatibility
