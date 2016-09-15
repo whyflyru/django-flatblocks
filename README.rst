@@ -87,6 +87,15 @@ the ``plain_flatblock`` templatetag:
     {% plain_flatblock "page.about" evaluated=True %}
 
 
+If your project has subdomains support (for instance through `django-subdomains`_) you may
+use this for display blocks:
+
+.. code-block:: django
+
+    {% flatblock "page.info" subdomain="msk" %}
+
+By default django-flatblocks try to get value of subdomain from request (``request.subdomain``),
+but you may specify it direct it template tag. Note: value from template tag has higher priority.
 edit-view
 ---------
 
@@ -177,8 +186,9 @@ the `django-better-chunks`_ fork (``django.contrib.site``- and i18n-support).
 
 Releases
 --------
-0.10
+0.10:
     * Drop South support
+    * Added support of subdomains
 
 0.9.3:
     * Fixed Django 1.10 compatibility
@@ -260,4 +270,4 @@ Releases
 .. _`django-chunks`: http://code.google.com/p/django-chunks/
 .. _`django-better-chunks`: http://bitbucket.org/hakanw/django-better-chunks/
 .. _`forked by Peter Baumgardner`: http://github.com/lincolnloop/django-flatblock/
-.. _`south`: http://south.aeracode.org/
+.. _`django-subdomains`: https://github.com/tkaemming/django-subdomains/
