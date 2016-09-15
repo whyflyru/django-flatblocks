@@ -14,7 +14,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='flatblock',
             name='subdomain',
-            field=models.CharField(verbose_name='Subdomain', max_length=255, blank=True,
+            field=models.CharField(verbose_name='Subdomain', max_length=255, blank=True, null=True,
                                    help_text='A subdomain under which the content will be displayed'),
             preserve_default=False,
         ),
