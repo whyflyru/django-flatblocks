@@ -12,12 +12,12 @@ class FlatBlock(models.Model):
     title (header) which you can, for example, use in a sidebar of a website.
     """
     slug = models.CharField(_('Slug'), max_length=255, unique=True,
-        help_text=_("A unique name used for reference in the templates")
-    )
+                            help_text=_("A unique name used for reference in the templates"))
     header = models.CharField(_('Header'), blank=True, max_length=255,
-        help_text=_("An optional header for this content")
-    )
+                              help_text=_("An optional header for this content"))
     content = models.TextField(verbose_name=_('Content'), blank=True)
+    subdomain = models.CharField(_('Subdomain'), blank=True, max_length=255,
+                                 help_text=_('A subdomain under which the content will be displayed'))
 
     # Helper attributes used if content should be evaluated in order to
     # represent the original content.
