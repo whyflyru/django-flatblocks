@@ -71,8 +71,11 @@ FlatBlock = get_model('flatblocks', 'flatblock')
 def flatblock(context, slug, evaluated=False, subdomain=None,
               using='flatblocks/flatblock.html'):
 
-    request = context['request']
-    subdomain = subdomain if subdomain is not None else request.subdomain
+    request = context.get('request')
+    if subdomain is not None:
+        subdomain = subdomain
+    elif request and hasattr(request, 'subdomain'):
+        subdomain = request.subdomain
 
     if not settings.AUTOCREATE_STATIC_BLOCKS:
         try:
