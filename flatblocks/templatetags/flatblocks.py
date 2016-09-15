@@ -68,12 +68,15 @@ FlatBlock = get_model('flatblocks', 'flatblock')
 
 
 @register.simple_tag(takes_context=True)
-def flatblock(context, slug, evaluated=False,
+def flatblock(context, slug, evaluated=False, subdomain=None,
               using='flatblocks/flatblock.html'):
+
+    request = context['request']
+    subdomain = subdomain if subdomain is not None else request.subdomain
 
     if not settings.AUTOCREATE_STATIC_BLOCKS:
         try:
-            flatblock = FlatBlock.objects.get(slug=slug)
+            flatblock = FlatBlock.objects.get(slug=slug, subdomain=subdomain)
         except FlatBlock.DoesNotExist:
             return ''
     else:
