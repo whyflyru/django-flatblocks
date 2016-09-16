@@ -51,6 +51,7 @@ import logging
 
 from django import VERSION, template
 from django.template.loader import render_to_string
+from django.db.models import Q
 from flatblocks import settings
 
 if VERSION >= (1, 7):
@@ -78,9 +79,11 @@ def flatblock(context, slug, evaluated=False, subdomain=None,
         subdomain = request.subdomain
 
     if not settings.AUTOCREATE_STATIC_BLOCKS:
-        try:
-            flatblock = FlatBlock.objects.get(slug=slug, subdomain=subdomain)
-        except FlatBlock.DoesNotExist:
+        flatblock = FlatBlock.objects.filter(
+            Q(slug=slug),
+            Q(subdomain=subdomain) | Q(all_subdomains=True)
+        ).order_by('all_subdomains').first()
+        if not flatblock:
             return ''
     else:
         flatblock, _ = FlatBlock.objects.get_or_create(slug=slug,

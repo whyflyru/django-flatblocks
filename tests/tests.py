@@ -138,8 +138,23 @@ class TagTests(TestCase):
             content='Welcome to website',
             subdomain=''
         )
+        FlatBlock.objects.create(
+            slug='welcome',
+            content='Welcome to Russia',
+            all_subdomains=True
+        )
 
         request = self.request_factory.get('/')
+
+        # all subdomains
+        tpl = template.Template(
+            '{% load flatblocks %}{% flatblock "welcome" %}'
+        )
+        result = tpl.render(
+            template.Context({'request': request})
+        )
+        self.assertIn('Welcome to Russia', result)
+
         request.subdomain = 'msk'
 
         # getting subdomain from request

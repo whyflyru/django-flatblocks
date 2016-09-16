@@ -18,6 +18,8 @@ class FlatBlock(models.Model):
     content = models.TextField(verbose_name=_('Content'), blank=True)
     subdomain = models.CharField(_('Subdomain'), blank=True, null=True, max_length=255,
                                  help_text=_('A subdomain under which the content will be displayed'))
+    all_subdomains = models.BooleanField(verbose_name=_('All subdomains'), default=False,
+                                         help_text=_('Show on all subdomains'))
 
     # Helper attributes used if content should be evaluated in order to
     # represent the original content.
@@ -30,4 +32,4 @@ class FlatBlock(models.Model):
     class Meta:
         verbose_name = _('Flat block')
         verbose_name_plural = _('Flat blocks')
-        unique_together = ('slug', 'subdomain')
+        unique_together = ('slug', 'subdomain', 'all_subdomains')

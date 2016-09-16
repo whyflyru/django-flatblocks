@@ -24,8 +24,13 @@ class Migration(migrations.Migration):
                                    help_text='A subdomain under which the content will be displayed'),
             preserve_default=False,
         ),
+        migrations.AddField(
+            model_name='flatblock',
+            name='all_subdomains',
+            field=models.BooleanField(default=False, help_text='Show on all subdomains', verbose_name='All subdomains'),
+        ),
         migrations.AlterUniqueTogether(
             name='flatblock',
-            unique_together=set([('slug', 'subdomain')]),
+            unique_together=set([('slug', 'subdomain', 'all_subdomains')]),
         ),
     ]

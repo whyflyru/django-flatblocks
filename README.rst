@@ -96,6 +96,8 @@ use this for display blocks:
 
 By default django-flatblocks try to get value of subdomain from request (``request.subdomain``),
 but you may specify it direct it template tag. Note: value from template tag has higher priority.
+If you want to display block on all subdomains, you may specify a special flag ``all_subdomains``, but blocks with
+specified subdomain will override this setting.
 
 edit-view
 ---------
@@ -187,7 +189,7 @@ the `django-better-chunks`_ fork (``django.contrib.site``- and i18n-support).
 
 Releases
 --------
-0.10:
+0.10wf:
     * Drop South support
     * Added support of subdomains
 

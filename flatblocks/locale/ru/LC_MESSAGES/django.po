@@ -47,6 +47,14 @@ msgstr "Поддомен"
 msgid "A subdomain under which the content will be displayed"
 msgstr "Поддомен, под которым содержание будет показано"
 
+#: models.py:21
+msgid "All subdomains"
+msgstr "Все поддомены"
+
+#: models.py:22
+msgid "Show on all subdomains"
+msgstr "Показывать на всех поддоменах"
+
 #: views.py:46
 msgid "You are not allowed to edit this flatblock"
 msgstr "Недостаточно прав для редактирования этого блока текста"
