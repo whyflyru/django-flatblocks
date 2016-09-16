@@ -96,6 +96,7 @@ use this for display blocks:
 
 By default django-flatblocks try to get value of subdomain from request (``request.subdomain``),
 but you may specify it direct it template tag. Note: value from template tag has higher priority.
+
 edit-view
 ---------
 
