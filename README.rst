@@ -15,30 +15,6 @@ Probably the easiest way to install this application is to first run
 file and run ``python manage.py syncdb`` to update your database.
 
 
-Upgrading
----------
-
-django-flatblocks uses `South`_ for handling data and schema migrations
-starting with version 0.6.0, so the South-typical update path applies here.
-
-If you're upgrading from a 0.5.x version or earlier you will have to migrate
-in 3 steps:
-
-1. Install south.
-
-2. Migrate your database to the first version of flatblocks using South:
-
-   .. code-block:: sh
-
-      ./manage.py migrate flatblocks 0001 --fake
-
-3. Then migrate your database to the latest version of flatblocks' database
-   and data structure:
-
-   .. code-block:: sh
-
-      ./manage.py migrate flatblocks
-
 Usage
 -----
 
@@ -110,6 +86,18 @@ the ``plain_flatblock`` templatetag:
     <!-- -->
     {% plain_flatblock "page.about" evaluated=True %}
 
+
+If your project has subdomains support (for instance through `django-subdomains`_) you may
+use this for display blocks:
+
+.. code-block:: django
+
+    {% flatblock "page.info" subdomain="msk" %}
+
+By default django-flatblocks try to get value of subdomain from request (``request.subdomain``),
+but you may specify it direct it template tag. Note: value from template tag has higher priority.
+If you want to display block on all subdomains, you may specify a special flag ``all_subdomains``, but blocks with
+specified subdomain will override this setting.
 
 edit-view
 ---------
@@ -201,6 +189,9 @@ the `django-better-chunks`_ fork (``django.contrib.site``- and i18n-support).
 
 Releases
 --------
+0.10wf:
+    * Drop South support
+    * Added support of subdomains
 
 0.9.3:
     * Fixed Django 1.10 compatibility
@@ -282,4 +273,4 @@ Releases
 .. _`django-chunks`: http://code.google.com/p/django-chunks/
 .. _`django-better-chunks`: http://bitbucket.org/hakanw/django-better-chunks/
 .. _`forked by Peter Baumgardner`: http://github.com/lincolnloop/django-flatblock/
-.. _`south`: http://south.aeracode.org/
+.. _`django-subdomains`: https://github.com/tkaemming/django-subdomains/
