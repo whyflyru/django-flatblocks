@@ -189,7 +189,7 @@ the `django-better-chunks`_ fork (``django.contrib.site``- and i18n-support).
 
 Releases
 --------
-0.10wf:
+0.10+whyfly.1:
     * Drop South support
     * Added support of subdomains
 
