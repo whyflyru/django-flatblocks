@@ -97,8 +97,9 @@ def flatblock(context, slug, evaluated=False, subdomain=None,
         flatblock.header = template.Template(flatblock.header).render(context)
 
     if using:
-        with context.push(flatblock=flatblock):
-            result = render_to_string(using, context)
+        ctx = context.flatten()
+        ctx['flatblock'] = flatblock
+        result = render_to_string(using, ctx)
     else:
         result = flatblock.content
 
