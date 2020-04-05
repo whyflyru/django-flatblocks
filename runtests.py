@@ -20,21 +20,27 @@ if not settings.configured:
             'django.contrib.sessions',
             'django.contrib.auth',
             'django.contrib.admin',
+            'django.contrib.messages',
             'flatblocks',
             'tests',
         ),
         ROOT_URLCONF='tests.urls',
-        MIDDLEWARE_CLASSES=(
+        MIDDLEWARE=[
             'django.contrib.sessions.middleware.SessionMiddleware',
             'django.contrib.auth.middleware.AuthenticationMiddleware',
-        ),
+            'django.contrib.messages.middleware.MessageMiddleware',
+        ],
         TEMPLATES=[
             {
                 'BACKEND': 'django.template.backends.django.DjangoTemplates',
                 'DIRS': [],
                 'APP_DIRS': True,
                 'OPTIONS': {
-                    'debug': True
+                    'debug': True,
+                    'context_processors': [
+                        'django.contrib.auth.context_processors.auth',
+                        'django.contrib.messages.context_processors.messages',
+                    ],
                 }
             },
         ],

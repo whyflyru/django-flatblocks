@@ -5,7 +5,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='django-flatblocks',
-    version='0.10+whyfly.3',
+    version='0.10+whyfly.4',
     description='django-flatblocks acts like django.contrib.flatpages but '
                 'for parts of a page; like an editable help box you want '
                 'show alongside the main content.',
@@ -20,15 +20,17 @@ setup(
         'Environment :: Plugins',
         'Environment :: Web Environment',
         'Framework :: Django',
+        'Framework :: Django :: 2.2',
+        'Framework :: Django :: 3.0',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: BSD License',
         'Operating System :: OS Independent',
         'Programming Language :: Python',
-        'Programming Language :: Python :: 2',
-        'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.3',
-        'Programming Language :: Python :: 3.4',
+        'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: 3.8',
         'Programming Language :: Python :: Implementation :: PyPy',
         'Topic :: Software Development :: Libraries :: Python Modules',
         'Topic :: Internet :: WWW/HTTP',
@@ -44,6 +46,6 @@ setup(
     },
     zip_safe=False,
     requires = [
-        'Django (>=1.7)',
+        'Django (>=2.2)',
     ],
 )
